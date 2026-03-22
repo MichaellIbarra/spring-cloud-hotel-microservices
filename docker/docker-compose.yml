@@ -1,5 +1,5 @@
 # docker run --name mysql-db -e MYSQL_ROOT_PASSWORD=password1234 -p 3306:3306 -d mysql:8.0-debian
-# docker run --name postgres-db -e POSTGRES_PASSWORD=password1234 -p 5432:5432 -d postgres:15-alpine
+# docker run --name postgres-db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password1234 -p 5432:5432 -d postgres:15-alpine
 # docker run -d --name mongo-db -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=password1234 mongo:7.0
 
 services:
