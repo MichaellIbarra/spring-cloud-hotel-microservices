@@ -1,0 +1,536 @@
+{
+  "info": {
+    "_postman_id": "db43f8c5-35f6-4cbd-8c0d-e2ea163a4d7f",
+    "name": "microservices hotels",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "37428284",
+    "_collection_link": "https://go.postman.co/collection/37428284-db43f8c5-35f6-4cbd-8c0d-e2ea163a4d7f?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "users-service",
+      "item": [
+        {
+          "name": "save user",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiQURNSU4iLCJpZCI6MSwidXNlcm5hbWUiOiJnYXRvMSIsInN1YiI6ImdhdG8xIiwiaWF0IjoxNzc0MjEyNzI0LCJleHAiOjE3NzQyMTYzMjR9.ObgfG4jPnFSsS0YsTsINGo1AqvvLDYPOtTocWxejlC0_-o8acafsEhNAihTx8tKR",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"ssas\",\r\n    \"email\": \"12assgato@a.com\",\r\n    \"info\": \"12suaser of gato\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url_gateway}}/api/v1/users",
+              "host": [
+                "{{url_gateway}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get user by id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true,
+            "disabledSystemHeaders": {}
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiQURNSU4iLCJpZCI6MSwidXNlcm5hbWUiOiJnYXRvMSIsInN1YiI6ImdhdG8xIiwiaWF0IjoxNzc0MjEyNzI0LCJleHAiOjE3NzQyMTYzMjR9.ObgfG4jPnFSsS0YsTsINGo1AqvvLDYPOtTocWxejlC0_-o8acafsEhNAihTx8tKR",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{url_gateway}}/api/v1/users/a890c7d0-8430-41e1-a35d-dec088b10e79",
+              "host": [
+                "{{url_gateway}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "a890c7d0-8430-41e1-a35d-dec088b10e79"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all users",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiQURNSU4iLCJpZCI6MSwidXNlcm5hbWUiOiJnYXRvMSIsInN1YiI6ImdhdG8xIiwiaWF0IjoxNzc0MjEyNzI0LCJleHAiOjE3NzQyMTYzMjR9.ObgfG4jPnFSsS0YsTsINGo1AqvvLDYPOtTocWxejlC0_-o8acafsEhNAihTx8tKR",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{url_gateway}}/api/v1/users",
+              "host": [
+                "{{url_gateway}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8081/actuator/health",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "actuator",
+                "health"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "hotels-service",
+      "item": [
+        {
+          "name": "save hotel",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"hotel transilvania\",\r\n    \"description\": \"Es famosa por las ciudades medievales, las fronteras montañosas y los castillos como el castillo de Bran, una fortaleza gótica asociada con la leyenda de Drácula\",\r\n    \"address\": \"ubicado en el centro de Rumania\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url_gateway}}/api/v1/hotels",
+              "host": [
+                "{{url_gateway}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "hotels"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all hotlels",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{url_gateway}}/api/v1/hotels",
+              "host": [
+                "{{url_gateway}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "hotels"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all staffs",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{url_gateway}}/api/v1/staffs",
+              "host": [
+                "{{url_gateway}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "staffs"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get hotel by id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{url_gateway}}/api/v1/hotels/90872581-7d2b-4fe9-a6fe-e68d449b613b",
+              "host": [
+                "{{url_gateway}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "hotels",
+                "90872581-7d2b-4fe9-a6fe-e68d449b613b"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "grades-service",
+      "item": [
+        {
+          "name": "save grade",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"userId\": \"a890c7d0-8430-41e1-a35d-dec088b10e79\",\r\n    \"hotelId\": \"90872581-7d2b-4fe9-a6fe-e68d449b613b\",\r\n    \"grade\": 5,\r\n    \"feedback\": \"hotel BUENoooo\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url_gateway}}/api/v1/grades",
+              "host": [
+                "{{url_gateway}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "grades"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all grades",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{url_gateway}}/api/v1/grades",
+              "host": [
+                "{{url_gateway}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "grades"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get grades by user id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{url_gateway}}/api/v1/grades/users/a890c7d0-8430-41e1-a35d-dec088b10e79",
+              "host": [
+                "{{url_gateway}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "grades",
+                "users",
+                "a890c7d0-8430-41e1-a35d-dec088b10e79"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get grades by hotel id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{url_gateway}}/api/v1/grades/hotels/90872581-7d2b-4fe9-a6fe-e68d449b613b",
+              "host": [
+                "{{url_gateway}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "grades",
+                "hotels",
+                "90872581-7d2b-4fe9-a6fe-e68d449b613b"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "config-server",
+      "item": [
+        {
+          "name": "application default",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:9000/service-grade.yml",
+              "host": [
+                "localhost"
+              ],
+              "port": "9000",
+              "path": [
+                "service-grade.yml"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "login",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"gato1\",\r\n    \"password\": \"gato@1.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url_gateway}}/api/v1/auth/login",
+              "host": [
+                "{{url_gateway}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "verify token",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"uri\": \"/api/v1.0/admin/contracts\",\r\n    \"method\": \"POST\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:9002/api/v1/auth/validate?token=eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiQURNSU4iLCJpZCI6MSwidXNlcm5hbWUiOiJnYXRvMSIsInN1YiI6ImdhdG8xIiwiaWF0IjoxNzc0MjEyNzI0LCJleHAiOjE3NzQyMTYzMjR9.ObgfG4jPnFSsS0YsTsINGo1AqvvLDYPOtTocWxejlC0_-o8acafsEhNAihTx8tKR",
+              "host": [
+                "localhost"
+              ],
+              "port": "9002",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "validate"
+              ],
+              "query": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzM4NCJ9.eyJyb2xlIjoiQURNSU4iLCJpZCI6MSwidXNlcm5hbWUiOiJnYXRvMSIsInN1YiI6ImdhdG8xIiwiaWF0IjoxNzc0MjEyNzI0LCJleHAiOjE3NzQyMTYzMjR9.ObgfG4jPnFSsS0YsTsINGo1AqvvLDYPOtTocWxejlC0_-o8acafsEhNAihTx8tKR"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "register",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"gato1\",\r\n    \"password\": \"gato@1.com\",\r\n    \"role\": \"ADMIN\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:9002/api/v1/auth/register",
+              "host": [
+                "localhost"
+              ],
+              "port": "9002",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "url_gateway",
+      "value": ""
+    }
+  ]
+}
