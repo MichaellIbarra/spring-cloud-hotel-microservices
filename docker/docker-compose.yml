@@ -1,3 +1,7 @@
+# docker run --name mysql-db -e MYSQL_ROOT_PASSWORD=password1234 -p 3306:3306 -d mysql:8.0-debian
+# docker run --name postgres-db -e POSTGRES_PASSWORD=password1234 -p 5432:5432 -d postgres:15-alpine
+# docker run -d --name mongo-db -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=password1234 mongo:7.0
+
 services:
   # ===== BASES DE DATOS =====
   mysql-db:
@@ -7,12 +11,12 @@ services:
       - database
       - all
     environment:
-      MYSQL_ROOT_PASSWORD: matichelo17
-      MYSQL_DATABASE: msvc_users
-      MYSQL_USER: app_user
-      MYSQL_PASSWORD: matichelo17
+      MYSQL_ROOT_PASSWORD: password1234
+      MYSQL_DATABASE: users_db
+      # MYSQL_USER: matichelo
+      # MYSQL_PASSWORD: password1234
     ports:
-      - "3306:3306"
+      - "3306:3306" #  Esta conformado 3306:3306, el primer 3306 es el puerto del host y el segundo 3306 es el puerto del contenedor. Esto significa que las solicitudes al puerto 3306 del host se redirigirán al puerto 3306 del contenedor, donde MySQL está escuchando.
     networks:
       - hotel-network
     volumes:
@@ -31,8 +35,8 @@ services:
       - all
     environment:
       POSTGRES_DB: hotels_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: matichelo17
+      # POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password1234
     ports:
       - "5432:5432"
     networks:
@@ -54,7 +58,7 @@ services:
       - all
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: matichelo17
+      MONGO_INITDB_ROOT_PASSWORD: password1234
       MONGO_INITDB_DATABASE: grade-db
     ports:
       - "27017:27017"

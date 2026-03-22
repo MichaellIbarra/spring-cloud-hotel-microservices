@@ -1,9 +1,10 @@
 ## Config de servidor
 spring:
   datasource:
-    url: jdbc:mysql://mysql-db:3306/msvc_users
+    # url: jdbc:mysql://mysql-db:3306/users_db
+    url: jdbc:mysql://localhost:3306/users_db
     username: root
-    password: matichelo17
+    password: password1234
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
