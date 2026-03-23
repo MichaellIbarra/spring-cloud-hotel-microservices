@@ -32,13 +32,13 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    private int countRetry= 1;
+    // private int countRetry= 1;
     @GetMapping("/{id}")
-    @CircuitBreaker(name = "ratingHotelBreaker", fallbackMethod = "ratingHotelFallback") // Nombre del circuito y el método de fallback
+    // @CircuitBreaker(name = "ratingHotelBreaker", fallbackMethod = "ratingHotelFallback") // Nombre del circuito y el método de fallback
 //    @Retry(name = "ratingHotelRetry", fallbackMethod = "ratingHotelFallback")
     public ResponseEntity<User> getUserById(@PathVariable String id){
         log.info("Listing user by id: {}", id);
-        log.info("Retry count: {}", countRetry++);
+        // log.info("Retry count: {}", countRetry++);
         User user = userService.getUserById(id);
         return ResponseEntity.ok(user);
     }

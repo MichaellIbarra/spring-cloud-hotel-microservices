@@ -9,7 +9,9 @@ import dev.matichelo.service.user.exception.ResourceNotFoundException;
 import dev.matichelo.service.user.repository.UserRepository;
 import dev.matichelo.service.user.service.UserService;
 import feign.FeignException;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,20 +20,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     // getLogger es un método estático de la clase LoggerFactory que se utiliza para obtener una instancia del registrador (logger) asociado a una clase específica.
     // Esto permite que los mensajes de registro se asocien con la clase desde la cual se están registrando, lo que facilita la identificación del origen de los mensajes en los registros.
 
-    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
-    private final RestTemplate restTemplate;
+    // private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+    // private final RestTemplate restTemplate;
     private final UserRepository userRepository;
     private final HotelClient hotelClient;
     private final GradeClient gradeClient;
@@ -47,6 +51,18 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
+
+    @CircuitBreaker(name = "gradeServiceBreaker", fallbackMethod = "fallbackGetGradesForUser")
+    public List<Grade> getGradesForUser(String userId){
+        return gradeClient.getGradesByUserId(userId);
+    }
+
+    public List<Grade> fallbackGetGradesForUser(String userId){
+        log.info("Error al obtener calificaciones del usuario con id: {}. Retornando calificaciones por defecto.", userId);
+        return new ArrayList<>();
+    }
+
+
     @Override
     public User getUserById(String id) {
         User user = userRepository.findById(id).orElseThrow( () -> new ResourceNotFoundException("User not found with" +
@@ -56,7 +72,6 @@ public class UserServiceImpl implements UserService {
 //                restTemplate.getForObject("http://service-grade/api/v1/grades/users/"+ user.getId(), Grade[].class)
 //        ).toList();
         List<Grade> gradesList = gradeClient.getGradesByUserId(user.getId());
-
 
 //        List<Hotel> hotels = Arrays.stream(
 //                restTemplate.getForObject("http://service-hotel/api/v1/hotels", Hotel[].class)
@@ -73,14 +88,14 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toMap(Hotel::getId, Function.identity()));
 
         List<Grade> gradeWithHotel  =  gradesList.stream().map(grade -> {
-            logger.info("Grade Id: {}", grade.getId());
+            log.info("Grade Id: {}", grade.getId());
             // Llama el servicio de Hotel cada vez que itera
 //            try {
 //                ResponseEntity<Hotel> forEntity = restTemplate.getForEntity("http://service-hotel/api/v1/hotels/"+ grade.getHotelId(), Hotel.class);
 //                Hotel hotel = forEntity.getBody();
 //                grade.setHotel(hotel);
 //            } catch (HttpClientErrorException.NotFound e) {
-//                logger.warn("Hotel not found for id: {}", grade.getHotelId());
+//                log.warn("Hotel not found for id: {}", grade.getHotelId());
 //                grade.setHotel(null);
 //            }
 
@@ -96,7 +111,7 @@ public class UserServiceImpl implements UserService {
 
             return grade;
         }).toList();
-        logger.info("{}", gradeWithHotel);
+        log.info("{}", gradeWithHotel);
         user.setGrades(gradeWithHotel);
         return user;
     }
