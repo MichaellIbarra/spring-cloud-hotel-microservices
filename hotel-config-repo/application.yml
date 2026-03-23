@@ -1,0 +1,4 @@
+server:
+  port: 9999
+# se activa el perfil por defecto para el servidor de configuración: optional:
+# endpoint: http://localhost:9000/application/default
