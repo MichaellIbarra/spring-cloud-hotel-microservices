@@ -6,6 +6,7 @@ import dev.matichelo.service.user.entity.Grade;
 import dev.matichelo.service.user.entity.Hotel;
 import dev.matichelo.service.user.entity.User;
 import dev.matichelo.service.user.exception.ResourceNotFoundException;
+import dev.matichelo.service.user.integration.GradeServiceIntegration;
 import dev.matichelo.service.user.repository.UserRepository;
 import dev.matichelo.service.user.service.UserService;
 import feign.FeignException;
@@ -38,8 +39,8 @@ public class UserServiceImpl implements UserService {
     // private final RestTemplate restTemplate;
     private final UserRepository userRepository;
     private final HotelClient hotelClient;
-    private final GradeClient gradeClient;
-
+    // private final GradeClient gradeClient;
+    private final GradeServiceIntegration gradeServiceIntegration;
 
     @Override
     public User saveUser(User user) {
@@ -52,17 +53,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    @CircuitBreaker(name = "gradeServiceBreaker", fallbackMethod = "fallbackGetGradesForUser")
-    public List<Grade> getGradesForUser(String userId){
-        return gradeClient.getGradesByUserId(userId);
-    }
-
-    public List<Grade> fallbackGetGradesForUser(String userId){
-        log.info("Error al obtener calificaciones del usuario con id: {}. Retornando calificaciones por defecto.", userId);
-        return new ArrayList<>();
-    }
-
-
     @Override
     public User getUserById(String id) {
         User user = userRepository.findById(id).orElseThrow( () -> new ResourceNotFoundException("User not found with" +
@@ -71,7 +61,7 @@ public class UserServiceImpl implements UserService {
 //        List<Grade> gradesList = Arrays.stream(
 //                restTemplate.getForObject("http://service-grade/api/v1/grades/users/"+ user.getId(), Grade[].class)
 //        ).toList();
-        List<Grade> gradesList = gradeClient.getGradesByUserId(user.getId());
+        List<Grade> gradesList = gradeServiceIntegration.getGradesForUser(user.getId());
 
 //        List<Hotel> hotels = Arrays.stream(
 //                restTemplate.getForObject("http://service-hotel/api/v1/hotels", Hotel[].class)
