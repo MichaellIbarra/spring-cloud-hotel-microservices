@@ -28,7 +28,7 @@ service:
     name: service-grade
   hotel:
     name: service-hotel
-    
+#######################
 management:
   health:
     circuitbreakers:
@@ -58,6 +58,7 @@ resilience4j:
       ratingHotelRetry:
         max-attempts: 3 # Número máximo de intentos de reintento
         wait-duration: 2000ms # Duración de espera entre intentos de reintento (en milisegundos)
+        # retry-exceptions: # Excepciones específicas para las cuales se aplicará el reintento
         retry-exceptions:
           - java.io.IOException
           - java.util.concurrent.TimeoutException
