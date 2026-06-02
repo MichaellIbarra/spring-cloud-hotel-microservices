@@ -36,7 +36,7 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
             System.out.println(Arrays.toString(chunks));
             if(chunks.length != 2 || !chunks[0].equals("Bearer")){
                 return onError(exchange, HttpStatus.UNAUTHORIZED);
-            }
+            } 
             System.out.println("URI: " + exchange.getRequest().getPath().toString());
             System.out.println("Method: " + exchange.getRequest().getMethod().name());
             return webClient.build()
@@ -67,7 +67,7 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
 
     // es para configuraciones futuras si se necesitan
     public static class Config{
-
+        
     }
 
 }
